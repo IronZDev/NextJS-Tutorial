@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styles from "./switch.module.css";
 import Circle from "./circle";
+import styles from "./switch.module.css";
 
 export default function Switch({
   isOn = false,
@@ -9,7 +9,7 @@ export default function Switch({
   showIndicator = false,
 }) {
   const [switched, setSwitched] = useState(isOn);
-  const onChange = (newValue) => {
+  const onChange = (_newValue: React.ChangeEvent<HTMLInputElement>) => {
     setSwitched(!switched);
   };
   return (

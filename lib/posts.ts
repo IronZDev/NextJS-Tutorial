@@ -1,8 +1,15 @@
 import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
+import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
+
+export type PostData = {
+  id: string,
+  contentHtml: string,
+  title: string,
+  date: string
+}
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -51,7 +58,7 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: string): Promise<PostData> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -68,6 +75,6 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...matterResult.data,
+    ...matterResult.data as { date: string; title: string },
   };
 }
